@@ -1,8 +1,8 @@
 default['ssm_agent'].tap do |config|
   # Attempt to detect the current region from Ohai
   # @since 0.1.0
-  aws_az = node.fetch('ec2', {}).fetch('placement_availability_zone')
-  config['region'] = aws_az ? aws_az[0..-2] : 'us-east-1'
+  # aws_az = node.fetch('ec2', {}).fetch('placement_availability_zone')
+  # config['region'] = aws_az ? aws_az[0..-2] : 'us-east-1'
 
   # Version of the package to download and install
   # @since 0.1.0
@@ -11,8 +11,7 @@ default['ssm_agent'].tap do |config|
   # Url from which to download the ssm agent
   # @since 0.1.0
   config['package']['url'] = format(
-    'https://amazon-ssm-%s.s3.amazonaws.com/%s/%s/%s',
-    config['region'],
+    'https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/%s/%s/%s',
     config['package']['version'],
     value_for_platform_family('rhel' => 'linux_amd64',
                               'debian' => 'debian_amd64'),
